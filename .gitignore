@@ -36,3 +36,15 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### env ###
+.env
+.gradle/7.4/gc.properties
+.gradle/7.4/checksums/checksums.lock
+.gradle/7.4/dependencies-accessors/dependencies-accessors.lock
+.gradle/7.4/dependencies-accessors/gc.properties
+.gradle/7.4/fileChanges/last-build.bin
+.gradle/7.4/fileHashes/fileHashes.lock
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/buildOutputCleanup/cache.properties
+.gradle/vcs-1/gc.properties
