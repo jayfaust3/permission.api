@@ -1,5 +1,5 @@
 package com.permissionapi.common.enums
 
-enum class PermissionType {
+enum class ActorType {
     USER, SYSTEM
 }
