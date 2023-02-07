@@ -1,7 +1,7 @@
 package com.permissionapi.common.models.api
 
-import com.permissionapi.common.models.application.permission
-import com.permissionapi.common.enums
+import com.permissionapi.common.models.application.permission.Scope
+import com.permissionapi.common.enums.ActorType
 
 class PermissionAPIWriteRequest (
     val entityId: String,

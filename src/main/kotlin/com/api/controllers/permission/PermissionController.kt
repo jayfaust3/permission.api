@@ -1,4 +1,4 @@
-package com.permissionapi.api.controllers.permission
+package com.permissionapi.api.controllers
 
 class PermissionController {
 }

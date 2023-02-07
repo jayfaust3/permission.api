@@ -1,6 +1,6 @@
 package com.permissionapi.common.models.dataaccess.permission
 
-import com.permissionapi.common.enums
+import com.permissionapi.common.enums.ActorType
 
 class PermissionCRUDWriteRequest (
         val entityId: String,
