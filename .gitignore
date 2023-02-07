@@ -29,6 +29,12 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### Gradle ###
+gradle
+.gradle
+gradlew
+gradlew.bat
+
 ### VS Code ###
 .vscode/
 
@@ -37,4 +43,3 @@ build/
 
 ### env ###
 .env
-.gradle/
