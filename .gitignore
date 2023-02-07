@@ -2,12 +2,10 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+bin/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -39,14 +37,4 @@ build/
 
 ### env ###
 .env
-.gradle/7.4/gc.properties
-.gradle/7.4/checksums/checksums.lock
-.gradle/7.4/dependencies-accessors/dependencies-accessors.lock
-.gradle/7.4/dependencies-accessors/gc.properties
-.gradle/7.4/fileChanges/last-build.bin
-.gradle/7.4/fileHashes/fileHashes.lock
-.gradle/buildOutputCleanup/buildOutputCleanup.lock
-.gradle/buildOutputCleanup/cache.properties
-.gradle/vcs-1/gc.properties
-.idea/codeStyles/codeStyleConfig.xml
-.idea/codeStyles/Project.xml
+.gradle/
