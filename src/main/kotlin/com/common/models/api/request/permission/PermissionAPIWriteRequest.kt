@@ -1,4 +1,4 @@
-package com.permissionapi.common.models.api
+package com.permissionapi.common.models.api.request
 
 import com.permissionapi.common.models.application.permission.Scope
 import com.permissionapi.common.enums.ActorType
