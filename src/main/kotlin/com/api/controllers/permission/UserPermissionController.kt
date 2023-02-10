@@ -10,27 +10,29 @@ import com.permissionapi.common.enums.ActorType
 import com.permissionapi.common.models.application.permission.Scope
 
 @RestController
-@RequestMapping("/api/permissions")
-class PermissionController(
+@RequestMapping("/api/permissions/user")
+class UserPermissionController(
     private val crudService: IPermissionCRUDService
     ) {
+
+    private val actorType = ActorType.USER
     @GetMapping("/{id}")
     fun get(@PathVariable("id") id: String): ResponseEntity<ResponseModel<List<Scope>>> {
-        val scopes = crudService.getEntityPermissions(ActorType.USER, id)
+        val scopes = crudService.getEntityPermissions(actorType, id)
 
         return ResponseEntity.ok(ResponseModel<List<Scope>>(scopes))
     }
 
     @PostMapping
     fun create(@RequestBody request: PermissionAPIWriteRequest): ResponseEntity<ResponseModel<List<Scope>>> {
-        val scopes = crudService.createEntityPermissions(request.actorType, request.entityId, request.scopes)
+        val scopes = crudService.createEntityPermissions(actorType, request.entityId, request.scopes)
 
         return ResponseEntity(ResponseModel<List<Scope>>(scopes), HttpStatus.CREATED)
     }
 
     @PutMapping("/{id}")
     fun update(@RequestBody request: PermissionAPIWriteRequest, @PathVariable("id") id: String): ResponseEntity<ResponseModel<List<Scope>>> {
-        val scopes = crudService.updateEntityPermissions(request.actorType, request.entityId, request.scopes)
+        val scopes = crudService.updateEntityPermissions(actorType, request.entityId, request.scopes)
 
         return ResponseEntity.ok(ResponseModel<List<Scope>>(scopes))
     }

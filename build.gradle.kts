@@ -8,7 +8,7 @@ plugins {
     kotlin("plugin.jpa") version "1.3.72"
 }
 
-group = "com.saintapi"
+group = "com.permissionapi"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
@@ -22,11 +22,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // spring
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.vault:spring-vault-dependencies:2.3.2")
     implementation("org.springframework.vault:spring-vault-core:2.3.2")
+    implementation("org.springframework.data:spring-data-commons:2.3.3.RELEASE")
+
+    //aws
+    implementation("com.amazonaws:aws-java-sdk:1.12.403")
 
     // nimbus
     implementation("com.nimbusds:nimbus-jose-jwt:9.22")

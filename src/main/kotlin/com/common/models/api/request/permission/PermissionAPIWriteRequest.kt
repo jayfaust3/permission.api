@@ -5,6 +5,5 @@ import com.permissionapi.common.enums.ActorType
 
 class PermissionAPIWriteRequest (
     val entityId: String,
-    val actorType: ActorType,
     val scopes: List<Scope> = mutableListOf()
 )

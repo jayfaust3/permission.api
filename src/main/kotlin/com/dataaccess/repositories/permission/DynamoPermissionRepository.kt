@@ -13,10 +13,18 @@ class DynamoPermissionRepository() : BasePermissionRepository() {
     }
 
     override fun createEntityPermissions(actorType: ActorType, entityId: String, scopes: List<Scope>): List<Scope> {
+        for (scope in scopes) {
+            val writeRequest = PermissionDynamoWriteRequest(actorType, entityId, scope)
+        }
+
         return scopes
     }
 
     override fun updateEntityPermissions(actorType: ActorType, entityId: String, scopes: List<Scope>): List<Scope> {
+        for (scope in scopes) {
+            val writeRequest = PermissionDynamoWriteRequest(actorType, entityId, scope)
+        }
+
         return scopes
     }
 }
