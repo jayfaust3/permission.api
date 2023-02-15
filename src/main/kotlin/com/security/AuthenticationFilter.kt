@@ -1,4 +1,4 @@
-package com.permissionapi.security
+package com.permission.api.security
 
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter

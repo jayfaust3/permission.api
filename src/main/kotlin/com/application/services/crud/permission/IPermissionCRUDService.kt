@@ -1,7 +1,7 @@
-package com.permissionapi.application.services.crud
+package com.permission.api.application.services.crud
 
-import com.permissionapi.common.enums.ActorType
-import com.permissionapi.common.models.application.permission.Scope
+import com.permission.api.common.enums.ActorType
+import com.permission.api.common.models.application.permission.Scope
 
 interface IPermissionCRUDService {
     fun getEntityPermissions(actorType: ActorType, entityId: String): List<Scope>

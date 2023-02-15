@@ -1,9 +1,9 @@
-package com.permissionapi.dataaccess.repositories.permission
+package com.permission.api.dataaccess.repositories.permission
 
-import com.permissionapi.common.enums.ActorType
-import com.permissionapi.common.models.application.permission.Scope
-import com.permissionapi.common.models.dataaccess.permission.dynamo.PermissionDynamoWriteRequest
-import com.permissionapi.common.models.dataaccess.permission.dynamo.PermissionDynamoReadRequest
+import com.permission.api.common.enums.ActorType
+import com.permission.api.common.models.application.permission.Scope
+import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoWriteRequest
+import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoReadRequest
 
 
 class DynamoPermissionRepository() : BasePermissionRepository() {

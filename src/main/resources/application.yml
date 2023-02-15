@@ -1,0 +1,9 @@
+app:
+  auth:
+    strategy: ${AUTH_STRATEGY}
+    auth0:
+      issuer: ${AUTH0_ISSUER}
+      apiAudience: ${AUTH0_API_AUDIENCE}
+    apikeys: ${API_KEYS}
+server:
+  port: 80

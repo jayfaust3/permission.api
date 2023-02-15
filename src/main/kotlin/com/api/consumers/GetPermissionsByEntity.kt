@@ -1,4 +1,4 @@
-package com.permissionapi.api.consumers
+package com.permission.api.api.consumers
 
 class GetPermissionsByEntity (
         ){

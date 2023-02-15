@@ -1,6 +1,6 @@
-package com.permissionapi.common.models.dataaccess.permission.dynamo
+package com.permission.api.common.models.dataaccess.permission.dynamo
 
-import com.permissionapi.common.enums.ActorType
+import com.permission.api.common.enums.ActorType
 
 class PermissionDynamoReadRequest (
     private val actorType: ActorType,

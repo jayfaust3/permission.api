@@ -1,7 +1,7 @@
-package com.permissionapi.dataaccess.repositories.permission
+package com.permission.api.dataaccess.repositories.permission
 
-import com.permissionapi.common.enums.ActorType
-import com.permissionapi.common.models.application.permission.Scope
+import com.permission.api.common.enums.ActorType
+import com.permission.api.common.models.application.permission.Scope
 
 abstract class BasePermissionRepository : IPermissionRepository {
     abstract override fun getEntityPermissions(actorType: ActorType, entityId: String): List<Scope>

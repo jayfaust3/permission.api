@@ -1,4 +1,4 @@
-package com.permissionapi.security
+package com.permission.api.security
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity

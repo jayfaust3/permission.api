@@ -1,4 +1,4 @@
-package com.permissionapi.common.models.dataaccess.permission.dynamo
+package com.permission.api.common.models.dataaccess.permission.dynamo
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey

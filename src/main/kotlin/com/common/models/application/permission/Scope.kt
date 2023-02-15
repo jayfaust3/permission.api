@@ -1,4 +1,4 @@
-package com.permissionapi.common.models.application.permission
+package com.permission.api.common.models.application.permission
 
 class Scope (
         val resource: String,
