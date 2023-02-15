@@ -4,6 +4,13 @@ app:
     auth0:
       issuer: ${AUTH0_ISSUER}
       apiAudience: ${AUTH0_API_AUDIENCE}
-    apikeys: ${API_KEYS}
+    apiKeys: ${API_KEYS}
+  aws:
+    region: ${AWS_REGION}
+    clientId: ${AWS_CLIENT_ID}
+    clientSecret: ${AWS_CLIENT_SECRET}
+    dynamo:
+      endpoint: ${AWS_DYNAMO_ENDPOINT}
+      permissionTableName: ${AWS_DYNAMO_PERMISSION_TABLE_NAME}
 server:
   port: 80

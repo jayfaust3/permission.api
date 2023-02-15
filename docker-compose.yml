@@ -6,6 +6,16 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    environment:
+      - AUTH_STRATEGY=${AUTH_STRATEGY}
+      - AUTH0_ISSUER=${AUTH0_ISSUER}
+      - AUTH0_API_AUDIENCE=${AUTH0_API_AUDIENCE}
+      - API_KEYS=${API_KEYS}
+      - AWS_CLIENT_ID=${AWS_CLIENT_ID}
+      - AWS_CLIENT_SECRET=${AWS_CLIENT_SECRET}
+      - AWS_DYNAMO_ENDPOINT=${AWS_DYNAMO_ENDPOINT}
+      - AWS_DYNAMO_PERMISSION_TABLE_NAME=${AWS_DYNAMO_PERMISSION_TABLE_NAME}
+      - AWS_REGION=${AWS_REGION}
     ports:
       - 3010:80
     platform: linux/amd64

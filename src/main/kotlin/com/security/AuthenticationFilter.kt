@@ -19,7 +19,7 @@ class AuthenticationFilter(
     private val apiAudience: String,
     @Value(value = "\${app.auth.auth0.issuer}")
     private val issuer: String,
-    @Value(value = "\${app.auth.apikeys}")
+    @Value(value = "\${app.auth.apiKeys}")
     private val apiKeys: List<String>
 ) : OncePerRequestFilter() {
     @Throws(JWTVerificationException::class)
