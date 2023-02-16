@@ -1,6 +1,6 @@
 package com.permission.api.application.services.crud
 
-import com.permission.api.dataaccess.repositories.permission.IPermissionRepository
+import com.permission.api.dataaccess.repositories.IPermissionRepository
 import com.permission.api.common.enums.ActorType
 import com.permission.api.common.models.application.permission.Scope
 

@@ -1,4 +1,4 @@
-package com.permission.api.dataaccess.repositories.permission
+package com.permission.api.dataaccess.repositories
 
 import com.permission.api.common.enums.ActorType
 import com.permission.api.common.models.application.permission.Scope

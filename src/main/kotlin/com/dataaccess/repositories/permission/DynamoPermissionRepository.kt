@@ -1,4 +1,4 @@
-package com.permission.api.dataaccess.repositories.permission
+package com.permission.api.dataaccess.repositories
 
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider
@@ -7,11 +7,11 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder
 import com.amazonaws.client.builder.AwsClientBuilder
 import com.amazonaws.services.dynamodbv2.document.DynamoDB
 import com.amazonaws.services.dynamodbv2.document.Item
-import com.amazonaws.services.dynamodbv2.document.utils.ValueMap
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec
-import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec
 import com.permission.api.common.enums.ActorType
 import com.permission.api.common.models.application.permission.Scope
+import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoDeleteRequest
 import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoWriteRequest
 import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoReadRequest
 import org.springframework.beans.factory.annotation.Value
@@ -88,12 +88,57 @@ class DynamoPermissionRepository(
     }
 
     override fun updateEntityPermissions(actorType: ActorType, entityId: String, scopes: List<Scope>): List<Scope> {
-        val writeRequests = scopes.map{ scope -> PermissionDynamoWriteRequest(actorType, entityId, scope) }
+        val incomingScopes = scopes.map { scope -> "${scope.resource}:${scope.action}" }
+        val existingScopes = getEntityPermissions(actorType, entityId).map { scope -> "${scope.resource}:${scope.action}" }
 
-        for (request in writeRequests) {
+        val scopesToAdd = mutableListOf<Scope>()
+        val scopesToDelete = mutableListOf<Scope>()
 
+        for (scope in incomingScopes) {
+            if (!existingScopes.contains(scope)) {
+                val scopeParts = scope.split(":")
+
+                val resource = scopeParts[0]
+                val action = scopeParts[1]
+
+                scopesToAdd.add(
+                    Scope(resource, action)
+                )
+            }
         }
 
+        for (scope in existingScopes) {
+            if (!incomingScopes.contains(scope)) {
+                val scopeParts = scope.split(":")
+
+                val resource = scopeParts[0]
+                val action = scopeParts[1]
+
+                scopesToDelete.add(
+                    Scope(resource, action)
+                )
+            }
+        }
+
+        deleteEntityPermissions(actorType, entityId, scopesToDelete)
+        createEntityPermissions(actorType, entityId, scopesToAdd)
+
         return scopes
+    }
+
+    private fun deleteEntityPermissions(actorType: ActorType, entityId: String, scopes: List<Scope>): Unit {
+        val deleteRequests = scopes.map{ scope -> PermissionDynamoDeleteRequest(actorType, entityId, scope) }
+
+        for (request in deleteRequests) {
+            val spec = DeleteItemSpec()
+                .withPrimaryKey(
+                    "entity_id",
+                    request.partitionKey,
+                    "scope",
+                    request.sortKey
+                )
+
+            dynamoClient.deleteItem(spec)
+        }
     }
 }
