@@ -7,6 +7,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder
 import com.amazonaws.client.builder.AwsClientBuilder
 import com.amazonaws.services.dynamodbv2.document.DynamoDB
 import com.amazonaws.services.dynamodbv2.document.Item
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec
 import com.permission.api.common.enums.ActorType
@@ -54,11 +55,18 @@ class DynamoPermissionRepository(
             readRequest.partitionKey
         )
 
-        val outcome = dynamoClient.query(spec)
+        val queryResult = dynamoClient.query(spec)
 
-        // return outcome.map{item -> Scope(item.)}
+        return queryResult
+            .map{ item -> item.get("scope")}
+            .map{ scopeString ->
+                val scopeParts = (scopeString as String).split(":")
 
-        return listOf()
+                val resource = scopeParts[0]
+                val action = scopeParts[1]
+
+                Scope(resource, action)
+            }
     }
 
     override fun createEntityPermissions(actorType: ActorType, entityId: String, scopes: List<Scope>): List<Scope> {
