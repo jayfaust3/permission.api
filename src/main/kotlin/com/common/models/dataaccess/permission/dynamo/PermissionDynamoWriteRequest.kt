@@ -3,7 +3,7 @@ package com.permission.api.common.models.dataaccess.permission.dynamo
 import com.permission.api.common.enums.ActorType
 import com.permission.api.common.models.application.permission.Scope
 
-class PermissionDynamoWriteRequest (
+data class PermissionDynamoWriteRequest (
         private val actorType: ActorType,
         private val entityId: String,
         private val scope: Scope

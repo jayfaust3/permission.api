@@ -1,6 +1,6 @@
 package com.permission.api.common.models.application.permission
 
-class Scope (
+data class Scope (
         val resource: String,
         val action: String
 )

@@ -1,8 +1,8 @@
-package com.permission.api.common.models.api.request
+package com.common.models.api.request.api.permission
 
 import com.permission.api.common.models.application.permission.Scope
 
-class PermissionAPIWriteRequest (
+data class PermissionAPIWriteRequest (
     val entityId: String,
     val scopes: List<Scope> = mutableListOf()
 )

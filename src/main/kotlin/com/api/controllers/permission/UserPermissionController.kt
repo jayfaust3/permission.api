@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import com.permission.api.application.services.crud.IPermissionCRUDService
-import com.permission.api.common.models.api.request.PermissionAPIWriteRequest
+import com.common.models.api.request.api.permission.PermissionAPIWriteRequest
 import com.permission.api.common.models.api.response.ResponseModel
 import com.permission.api.common.enums.ActorType
 import com.permission.api.common.models.application.permission.Scope
