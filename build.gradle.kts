@@ -31,11 +31,8 @@ dependencies {
     //aws
     implementation("com.amazonaws:aws-java-sdk:1.12.403")
 
-    // nimbus
-    implementation("com.nimbusds:nimbus-jose-jwt:9.22")
-
-    // jackson json
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    // rabbit-mq
+    implementation("com.rabbitmq:amqp-client:5.16.0")
 
     // arrow
     implementation("io.arrow-kt:arrow-core-jvm:1.1.2")
