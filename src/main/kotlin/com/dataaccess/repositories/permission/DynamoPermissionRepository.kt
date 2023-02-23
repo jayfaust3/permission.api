@@ -8,12 +8,12 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB
 import com.amazonaws.services.dynamodbv2.document.Item
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec
+import org.springframework.beans.factory.annotation.Value
 import com.permission.api.common.enums.ActorType
 import com.permission.api.common.models.application.permission.Scope
 import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoDeleteRequest
 import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoWriteRequest
 import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoReadRequest
-import org.springframework.beans.factory.annotation.Value
 
 class DynamoPermissionRepository(
     @Value(value = "\${app.aws.region}")

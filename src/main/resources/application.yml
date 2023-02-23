@@ -14,6 +14,7 @@ app:
       permissionTableName: ${AWS_DYNAMO_PERMISSION_TABLE_NAME}
   rabbit-mq:
     host: ${RABBITMQ_HOST}
+    virtualHost: ${RABBITMQ_VIRTUAL_HOST}
     port: ${RABBITMQ_PORT}
     username: ${RABBITMQ_USERNAME}
     password: ${RABBITMQ_PASSWORD}

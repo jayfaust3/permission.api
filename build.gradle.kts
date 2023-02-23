@@ -3,9 +3,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.3.3.RELEASE"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
-    kotlin("jvm") version "1.6.0"
+    kotlin("jvm") version "1.8.0"
     kotlin("plugin.spring") version "1.3.72"
     kotlin("plugin.jpa") version "1.3.72"
+    kotlin("plugin.serialization") version "1.8.0"
 }
 
 group = "com.permission.api"
@@ -27,6 +28,9 @@ dependencies {
     implementation("org.springframework.vault:spring-vault-dependencies:2.3.2")
     implementation("org.springframework.vault:spring-vault-core:2.3.2")
     implementation("org.springframework.data:spring-data-commons:2.3.3.RELEASE")
+
+    // kotlinx
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 
     //aws
     implementation("com.amazonaws:aws-java-sdk:1.12.403")
