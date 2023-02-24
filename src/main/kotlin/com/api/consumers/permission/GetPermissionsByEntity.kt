@@ -1,12 +1,13 @@
-package com.api.consumers.permission
+package com.permission.api.api.consumers
 
 import org.springframework.beans.factory.annotation.Value
 import com.rabbitmq.client.AMQP
 import com.rabbitmq.client.ConnectionFactory
 import com.rabbitmq.client.DefaultConsumer
 import com.rabbitmq.client.Envelope
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import com.permission.api.application.services.crud.IPermissionCRUDService
 import com.common.models.api.request.messaging.base.Message
 import com.common.models.api.request.messaging.permission.PermissionMessagingReadRequest
@@ -49,7 +50,7 @@ class GetPermissionsByEntity (
                                 val messageJSON = String(body, charset("UTF-8"))
                                 val message = Json.decodeFromString<Message<PermissionMessagingReadRequest>>(messageJSON)
                                 val request = message.data
-                                val permissions = crudService.getEntityPermissions(
+                                val permissions: List<Scope> = crudService.getEntityPermissions(
                                         request.actorType,
                                         request.entityId
                                 )
