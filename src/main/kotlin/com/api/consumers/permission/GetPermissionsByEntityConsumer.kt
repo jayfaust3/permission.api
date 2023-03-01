@@ -12,6 +12,7 @@ import com.common.models.api.request.messaging.base.Message
 import com.common.models.api.request.messaging.permission.PermissionMessagingReadRequest
 import com.permission.api.common.models.application.permission.Scope
 import com.permission.api.configuration.RabbitMQConfiguration
+import org.springframework.amqp.core.MessageProperties
 import org.springframework.amqp.rabbit.connection.CorrelationData
 
 const val QUEUE = "get-permissions-by-entity"
@@ -26,25 +27,13 @@ class GetPermissionsByEntityConsumer (
         @RabbitHandler
         fun receive(message: RabbitMQMessage): Unit {
                 val messageBytes = message.body
-                val messageJSON = String(messageBytes, charset("UTF-8"))
-                val deserializedMessage = Json.decodeFromString<Message<PermissionMessagingReadRequest>>(messageJSON)
-                val request = deserializedMessage.data
-                val permissions: List<Scope> = crudService.getEntityPermissions(
-                                        request.actorType,
-                                        request.entityId
-                )
-                val responseJSON = Json.encodeToString(
-                        Message(
-                                permissions
-                        )
-                )
-                val responseBytes = responseJSON.toByteArray()
-
                 val messageProperties = message.messageProperties
+
+                val responseBytes = getResponse(messageBytes)
+
                 val responseMessage = RabbitMQMessage(responseBytes, messageProperties)
 
-                val correlationId = messageProperties.correlationId
-                val correlationData = CorrelationData(correlationId)
+                val correlationData = getCorrelationData(messageProperties)
 
                 rabbitTemplate.sendAndReceive(
                         config.RPC_EXCHANGE,
@@ -52,5 +41,26 @@ class GetPermissionsByEntityConsumer (
                         responseMessage,
                         correlationData
                 )
+        }
+
+        private fun getResponse(messageBytes: ByteArray): ByteArray {
+                val messageJSON = String(messageBytes, charset("UTF-8"))
+                val deserializedMessage = Json.decodeFromString<Message<PermissionMessagingReadRequest>>(messageJSON)
+                val request = deserializedMessage.data
+                val permissions: List<Scope> = crudService.getEntityPermissions(
+                        request.actorType,
+                        request.entityId
+                )
+                val responseJSON = Json.encodeToString(
+                        Message(
+                                permissions
+                        )
+                )
+                return responseJSON.toByteArray()
+        }
+
+        private fun getCorrelationData(messageProperties: MessageProperties): CorrelationData {
+                val correlationId = messageProperties.correlationId
+                return CorrelationData(correlationId)
         }
 }
