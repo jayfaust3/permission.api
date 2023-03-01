@@ -15,11 +15,11 @@ import com.auth0.jwt.exceptions.TokenExpiredException
 
 @Component
 class AuthenticationFilter(
-    @Value(value = "\${app.auth.auth0.apiAudience}")
+    @Value(value = "\${auth.auth0.apiAudience}")
     private val apiAudience: String,
-    @Value(value = "\${app.auth.auth0.issuer}")
+    @Value(value = "\${auth.auth0.issuer}")
     private val issuer: String,
-    @Value(value = "\${app.auth.apiKeys}")
+    @Value(value = "\${auth.apiKeys}")
     private val apiKeys: List<String>
 ) : OncePerRequestFilter() {
     @Throws(JWTVerificationException::class)

@@ -8,7 +8,7 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB
 import com.amazonaws.services.dynamodbv2.document.Item
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec
-import org.springframework.beans.factory.annotation.Value
+import com.permission.api.configuration.AWSConfiguration
 import com.permission.api.common.enums.ActorType
 import com.permission.api.common.models.application.permission.Scope
 import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoDeleteRequest
@@ -16,16 +16,7 @@ import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionD
 import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoReadRequest
 
 class DynamoPermissionRepository(
-    @Value(value = "\${app.aws.region}")
-    private val awsRegion: String,
-    @Value(value = "\${app.aws.clientId}")
-    private val awsClientId: String,
-    @Value(value = "\${app.aws.clientSecret}")
-    private val awsClientSecret: String,
-    @Value(value = "\${app.aws.dynamo.endpoint}")
-    private val dynamoEndpoint: String,
-    @Value(value = "\${app.aws.dynamo.permissionTableName}")
-    private val permissionTableName: String
+    private val awsConfig: AWSConfiguration
 ) : BasePermissionRepository() {
 
     private val dynamoClient = DynamoDB(
@@ -33,17 +24,20 @@ class DynamoPermissionRepository(
             .standard()
             .withCredentials(
                 AWSStaticCredentialsProvider(
-                    BasicAWSCredentials(awsClientId, awsClientSecret)
+                    BasicAWSCredentials(
+                        awsConfig.awsClientId,
+                        awsConfig.awsClientSecret
+                    )
                 )
             )
             .withEndpointConfiguration(
                 AwsClientBuilder.EndpointConfiguration(
-                    dynamoEndpoint,
-                    awsRegion
+                    awsConfig.dynamoEndpoint,
+                    awsConfig.awsRegion
                 )
             )
             .build()
-    ).getTable(permissionTableName)
+    ).getTable(awsConfig.permissionTableName)
 
     override fun getEntityPermissions(actorType: ActorType, entityId: String): List<Scope> {
         val readRequest = PermissionDynamoReadRequest(actorType, entityId)
