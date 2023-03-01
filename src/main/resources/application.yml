@@ -12,11 +12,13 @@ app:
     dynamo:
       endpoint: ${AWS_DYNAMO_ENDPOINT}
       permissionTableName: ${AWS_DYNAMO_PERMISSION_TABLE_NAME}
-  rabbit-mq:
+spring:
+  rabbitmq:
     host: ${RABBITMQ_HOST}
-    virtualHost: ${RABBITMQ_VIRTUAL_HOST}
     port: ${RABBITMQ_PORT}
     username: ${RABBITMQ_USERNAME}
     password: ${RABBITMQ_PASSWORD}
+    publisher-confirm-type: correlated
+    publisher-returns: true
 server:
   port: 80
