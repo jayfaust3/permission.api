@@ -25,7 +25,6 @@ class GetPermissionsByEntityConsumer (
 
         @RabbitHandler
         fun receive(message: RabbitMQMessage): Unit {
-                message.messageProperties.headers
                 val messageBytes = message.body
                 val messageJSON = String(messageBytes, charset("UTF-8"))
                 val deserializedMessage = Json.decodeFromString<Message<PermissionMessagingReadRequest>>(messageJSON)
@@ -40,11 +39,13 @@ class GetPermissionsByEntityConsumer (
                         )
                 )
                 val responseBytes = responseJSON.toByteArray()
+
                 val messageProperties = message.messageProperties
                 val responseMessage = RabbitMQMessage(responseBytes, messageProperties)
 
                 val correlationId = messageProperties.correlationId
-                val correlationData = CorrelationData(correlationId);
+                val correlationData = CorrelationData(correlationId)
+
                 rabbitTemplate.sendAndReceive(
                         config.RPC_EXCHANGE,
                         QUEUE,
