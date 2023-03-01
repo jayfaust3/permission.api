@@ -36,16 +36,9 @@ dependencies {
     implementation("com.amazonaws:aws-java-sdk:1.12.403")
 
     // rabbit-mq
-    implementation("com.rabbitmq:amqp-client:5.16.0")
-
-    // implementation("org.springframework:spring-messaging:6.0.5")
     implementation("org.springframework:spring-messaging:5.3.25")
-    // implementation("org.springframework.amqp:spring-rabbit:3.0.2")
     implementation("org.springframework.amqp:spring-rabbit:2.4.10")
-    // implementation("org.springframework.boot:spring-boot-starter:3.0.3")
     implementation("org.springframework.boot:spring-boot-starter:2.7.9")
-
-    // implementation("org.springframework.boot:spring-boot-starter-amqp:3.0.3")
     implementation("org.springframework.boot:spring-boot-starter-amqp:2.7.9")
 
     // arrow
