@@ -1,0 +1,11 @@
+.gradle/
+bin/
+build/
+gradle/
+.idea/
+LICENSE
+build-local.sh
+gradlew
+gradlew.bat
+.env
+.gitignore
