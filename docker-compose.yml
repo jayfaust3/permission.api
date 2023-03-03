@@ -3,6 +3,8 @@ version: '3.8'
 services:
   permission-api:
     image: permission-api
+    container_name: permission-api
+    hostname: permission-api
     build:
       context: .
       dockerfile: ./Dockerfile

@@ -12,28 +12,28 @@ import com.permission.api.common.models.application.permission.Scope
 @RestController
 @RequestMapping("/api/permissions/user")
 class UserPermissionController(
-    private val crudService: IPermissionCRUDService
+    private val permissionCRUDService: IPermissionCRUDService
     ) {
 
     private val actorType = ActorType.USER
     @GetMapping("/{id}")
     fun get(@PathVariable("id") id: String): ResponseEntity<ResponseModel<List<Scope>>> {
-        val scopes = crudService.getEntityPermissions(actorType, id)
+        val scopes = permissionCRUDService.getEntityPermissions(actorType, id)
 
-        return ResponseEntity.ok(ResponseModel<List<Scope>>(scopes))
+        return ResponseEntity.ok(ResponseModel(scopes))
     }
 
     @PostMapping
     fun create(@RequestBody request: PermissionAPIWriteRequest): ResponseEntity<ResponseModel<List<Scope>>> {
-        val scopes = crudService.createEntityPermissions(actorType, request.entityId, request.scopes)
+        val scopes = permissionCRUDService.createEntityPermissions(actorType, request.entityId, request.scopes)
 
-        return ResponseEntity(ResponseModel<List<Scope>>(scopes), HttpStatus.CREATED)
+        return ResponseEntity(ResponseModel(scopes), HttpStatus.CREATED)
     }
 
     @PutMapping("/{id}")
     fun update(@RequestBody request: PermissionAPIWriteRequest, @PathVariable("id") id: String): ResponseEntity<ResponseModel<List<Scope>>> {
-        val scopes = crudService.updateEntityPermissions(actorType, request.entityId, request.scopes)
+        val scopes = permissionCRUDService.updateEntityPermissions(actorType, request.entityId, request.scopes)
 
-        return ResponseEntity.ok(ResponseModel<List<Scope>>(scopes))
+        return ResponseEntity.ok(ResponseModel(scopes))
     }
 }

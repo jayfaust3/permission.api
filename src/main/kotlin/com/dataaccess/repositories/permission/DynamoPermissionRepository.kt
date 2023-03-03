@@ -15,7 +15,7 @@ import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionD
 import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoWriteRequest
 import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionDynamoReadRequest
 
-class DynamoPermissionRepository(
+class DynamoPermissionRepository (
     private val awsConfig: AWSConfiguration
 ) : BasePermissionRepository() {
 

@@ -4,16 +4,16 @@ import com.permission.api.dataaccess.repositories.IPermissionRepository
 import com.permission.api.common.enums.ActorType
 import com.permission.api.common.models.application.permission.Scope
 
-class PermissionCRUDService(private val repository: IPermissionRepository) : IPermissionCRUDService {
+class PermissionCRUDService(private val dynamoPermissionRepository: IPermissionRepository) : IPermissionCRUDService {
     override fun getEntityPermissions(actorType: ActorType, entityId: String): List<Scope> {
-        return repository.getEntityPermissions(actorType, entityId)
+        return dynamoPermissionRepository.getEntityPermissions(actorType, entityId)
     }
 
     override fun createEntityPermissions(actorType: ActorType, entityId: String, scopes: List<Scope>): List<Scope> {
-        return repository.createEntityPermissions(actorType, entityId, scopes)
+        return dynamoPermissionRepository.createEntityPermissions(actorType, entityId, scopes)
     }
 
     override fun updateEntityPermissions(actorType: ActorType, entityId: String, scopes: List<Scope>): List<Scope> {
-        return repository.updateEntityPermissions(actorType, entityId, scopes)
+        return dynamoPermissionRepository.updateEntityPermissions(actorType, entityId, scopes)
     }
 }
