@@ -1,12 +1,13 @@
 package com.permission.api.security
 
 import org.springframework.stereotype.Component
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import org.springframework.http.HttpHeaders
-import org.springframework.beans.factory.annotation.Value
 import com.auth0.jwt.JWT
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.auth0.jwt.exceptions.JWTVerificationException
@@ -59,7 +60,7 @@ class AuthenticationFilter(
 
                     validateJWT(decodedJWT)
 
-                    // SecurityContextHolder.getContext().authentication = decodedJWT
+                    // SecurityContextHolder.getContext().authentication
                 }
                 else -> {
                     throw JWTVerificationException("No useful Authorization data provided by header")
