@@ -14,6 +14,7 @@ aws:
 spring:
   rabbitmq:
     host: ${RABBITMQ_HOST}
+    virtualhost: ${RABBITMQ_VIRTUAL_HOST}
     port: ${RABBITMQ_PORT}
     username: ${RABBITMQ_USERNAME}
     password: ${RABBITMQ_PASSWORD}
