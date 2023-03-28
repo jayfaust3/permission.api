@@ -18,6 +18,8 @@ repositories {
 }
 
 dependencies {
+    compileOnly("jakarta.servlet:jakarta.servlet-api:6.0.0")
+
     // kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.10")

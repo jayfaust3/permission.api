@@ -1,31 +1,33 @@
 package com.permission.api.security
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.web.SecurityFilterChain
 
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
-class SecurityConfiguration()  : WebSecurityConfigurerAdapter() {
+@Configuration
+class SecurityConfiguration {
     @Autowired
     lateinit var filter: AuthenticationFilter
 
-    override fun configure(http: HttpSecurity?) {
-        http?.let {
+    @Bean
+    fun filterChain(http: HttpSecurity): SecurityFilterChain {
+        http.let {
             it.cors().and()
                 .csrf().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .requestMatchers("/").permitAll()
                 // .anyRequest().hasAuthority("action:resource")
                 .and()
                 .addFilterBefore(filter, BasicAuthenticationFilter::class.java)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         }
+
+        return http.build()
     }
 }
