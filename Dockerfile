@@ -1,4 +1,4 @@
-FROM gradle:7.5.1-jdk11-alpine as builder
+FROM gradle:7.5.1-jdk17-alpine as builder
 COPY build.gradle.kts .
 COPY src ./src
 RUN gradle clean build --no-daemon
