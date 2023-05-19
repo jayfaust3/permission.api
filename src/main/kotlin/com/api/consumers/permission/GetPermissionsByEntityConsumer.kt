@@ -19,7 +19,7 @@ import com.permission.api.configuration.RabbitMQConfiguration
 import org.springframework.amqp.rabbit.connection.ConnectionFactory
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter
 
-const val QUEUE = "get-permissions-by-entity"
+const val QUEUE = "queue:get-permissions-by-entity"
 
 @RabbitListener(queues = [QUEUE])
 class GetPermissionsByEntityConsumer {
