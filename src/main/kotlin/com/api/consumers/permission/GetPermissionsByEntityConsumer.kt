@@ -18,10 +18,12 @@ import com.permission.api.common.models.application.permission.Scope
 import com.permission.api.configuration.RabbitMQConfiguration
 import org.springframework.amqp.rabbit.connection.ConnectionFactory
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter
+import org.springframework.stereotype.Service
 
 const val QUEUE = "queue:get-permissions-by-entity"
 
-@RabbitListener(queues = [QUEUE])
+@Service
+//@RabbitListener(queues = [QUEUE])
 class GetPermissionsByEntityConsumer {
 
         private val config: RabbitMQConfiguration
@@ -52,7 +54,8 @@ class GetPermissionsByEntityConsumer {
 //                Jackson2JsonMessageConverter().also { this.rabbitTemplate.messageConverter = it }
         }
 
-        @RabbitHandler
+//        @RabbitHandler
+        @RabbitListener(queues = [QUEUE])
         fun receive(message: RabbitMQMessage): Unit {
                 val messageBytes = message.body
                 val messageProperties = message.messageProperties
