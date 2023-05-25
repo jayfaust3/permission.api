@@ -14,6 +14,7 @@ import org.springframework.amqp.rabbit.connection.CorrelationData
 import com.permission.api.application.services.crud.IPermissionCRUDService
 import com.common.models.api.request.messaging.base.Message
 import com.common.models.api.request.messaging.permission.PermissionMessagingReadRequest
+import com.permission.api.common.enums.ActorType
 import com.permission.api.common.models.application.permission.Scope
 import com.permission.api.configuration.RabbitMQConfiguration
 import org.springframework.amqp.rabbit.connection.ConnectionFactory
@@ -68,7 +69,7 @@ class GetPermissionsByEntityConsumer {
 
                 this.rabbitTemplate.sendAndReceive(
                         config.RPC_EXCHANGE,
-                        config.GET_PERMISSIONS_BY_ENTITY_ROUTING_KEY,
+                        String.format("%s-reply-to", config.GET_PERMISSIONS_BY_ENTITY_ROUTING_KEY),
                         responseMessage,
                         correlationData
                 )
@@ -78,10 +79,9 @@ class GetPermissionsByEntityConsumer {
                 val messageJSON = String(messageBytes, charset("UTF-8"))
                 val deserializedMessage = Json.decodeFromString<Message<PermissionMessagingReadRequest>>(messageJSON)
                 val request = deserializedMessage.data
-                val permissions: List<Scope> = crudService.getEntityPermissions(
-                        request.actorType,
-                        request.entityId
-                )
+                val actorType = ActorType.valueOf(request.actorType) ?: ActorType.USER
+                val entityId = request.entityId
+                val permissions: List<Scope> = crudService.getEntityPermissions(actorType, entityId)
                 val responseJSON = Json.encodeToString(
                         Message(
                                 permissions

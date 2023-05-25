@@ -5,6 +5,6 @@ import com.permission.api.common.enums.ActorType
 
 @Serializable
 data class PermissionMessagingReadRequest (
-    val actorType: ActorType,
+    val actorType: Int,
     val entityId: String
 )
