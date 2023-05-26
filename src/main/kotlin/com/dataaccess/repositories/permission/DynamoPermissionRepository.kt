@@ -1,11 +1,7 @@
 package com.permission.api.dataaccess.repositories
 
 import org.springframework.stereotype.Repository
-import com.amazonaws.auth.AWSStaticCredentialsProvider
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder
-import com.amazonaws.client.builder.AwsClientBuilder
-import com.amazonaws.services.dynamodbv2.document.DynamoDB
+import org.springframework.beans.factory.annotation.Value
 import com.amazonaws.services.dynamodbv2.document.Item
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec
@@ -18,28 +14,12 @@ import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionD
 
 @Repository
 class DynamoPermissionRepository (
-    private val awsConfig: AWSConfiguration
-) : BasePermissionRepository() {
+    awsConfig: AWSConfiguration,
+    @Value(value = "\${aws.dynamo.permissionTableName}")
+    val permissionTableName: String
+    ) : BaseDynamoDBRepository(awsConfig), IPermissionRepository {
 
-    private val dynamoClient = DynamoDB(
-        AmazonDynamoDBClientBuilder
-            .standard()
-            .withCredentials(
-                AWSStaticCredentialsProvider(
-                    BasicAWSCredentials(
-                        awsConfig.awsClientId,
-                        awsConfig.awsClientSecret
-                    )
-                )
-            )
-            .withEndpointConfiguration(
-                AwsClientBuilder.EndpointConfiguration(
-                    awsConfig.dynamoEndpoint,
-                    awsConfig.awsRegion
-                )
-            )
-            .build()
-    ).getTable(awsConfig.permissionTableName)
+    private val tableClient = super.client().getTable(permissionTableName)
 
     override fun getEntityPermissions(actorType: ActorType, entityId: String): List<Scope> {
         val readRequest = PermissionDynamoReadRequest(actorType, entityId)
@@ -49,7 +29,7 @@ class DynamoPermissionRepository (
             readRequest.partitionKey
         )
 
-        val queryResult = dynamoClient.query(spec)
+        val queryResult = tableClient.query(spec)
 
         return queryResult
             .map{ item -> item.get("scope")}
@@ -75,7 +55,7 @@ class DynamoPermissionRepository (
                     request.sortKey
                 )
 
-            dynamoClient.putItem(item)
+            tableClient.putItem(item)
         }
 
         return scopes
@@ -132,7 +112,7 @@ class DynamoPermissionRepository (
                     request.sortKey
                 )
 
-            dynamoClient.deleteItem(spec)
+            tableClient.deleteItem(spec)
         }
     }
 }

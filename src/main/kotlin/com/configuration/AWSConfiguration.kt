@@ -13,6 +13,4 @@ class AWSConfiguration (
     val awsClientSecret: String,
     @Value(value = "\${aws.dynamo.endpoint}")
     val dynamoEndpoint: String,
-    @Value(value = "\${aws.dynamo.permissionTableName}")
-    val permissionTableName: String
-        )
+)
