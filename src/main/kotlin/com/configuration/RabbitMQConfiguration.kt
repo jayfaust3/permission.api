@@ -1,34 +1,15 @@
 package com.permission.api.configuration
 
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.amqp.core.*
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 
 @Configuration
-class RabbitMQConfiguration
-//    (
-//    @Value(value = "\${spring.rabbitmq.host}")
-//    val host: String,
-//    @Value(value = "\${spring.rabbitmq.virtualhost}")
-//    val virtualHost: String,
-//    @Value(value = "\${spring.rabbitmq.port}")
-//    val port: Int,
-//    @Value(value = "\${spring.rabbitmq.username}")
-//    val username: String,
-//    @Value(value = "\${spring.rabbitmq.password}")
-//    val password: String,
-//    @Value(value = "\${spring.rabbitmq.publisher-confirm-type}")
-//    val publisherConfirmType: String,
-//    @Value(value = "\${spring.rabbitmq.publisher-returns}")
-//    val publisherReturns: Boolean
-//        )
-    (val cachingConnectionFactory: CachingConnectionFactory)
-{
-    final val RPC_EXCHANGE = "exchange:rpc"
+class RabbitMQConfiguration (val cachingConnectionFactory: CachingConnectionFactory) {
+    final val RPC_EXCHANGE = "exchange:rpc:permission-api"
 
     final val GET_PERMISSIONS_BY_ENTITY_ROUTING_KEY = "get-permissions-by-entity"
 

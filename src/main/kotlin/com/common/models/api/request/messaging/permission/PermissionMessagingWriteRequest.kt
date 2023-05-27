@@ -1,4 +1,4 @@
-package com.common.models.api.request.messaging.permission
+package com.permission.api.common.models.api.request.messaging.permission
 
 import com.permission.api.common.enums.ActorType
 import com.permission.api.common.models.application.permission.Scope
