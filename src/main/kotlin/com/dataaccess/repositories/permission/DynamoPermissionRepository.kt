@@ -34,7 +34,7 @@ class DynamoPermissionRepository (
         return queryResult
             .map{ item -> item.get("scope")}
             .map{ scopeString ->
-                val scopeParts = (scopeString as String).split(":")
+                val scopeParts = (scopeString as String).split("::")
 
                 val resource = scopeParts[0]
                 val action = scopeParts[1]
