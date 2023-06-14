@@ -16,7 +16,7 @@ import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionD
 class DynamoPermissionRepository (
     awsConfig: AWSConfiguration,
     @Value(value = "\${aws.dynamo.permissionTableName}")
-    val permissionTableName: String
+    private val permissionTableName: String
     ) : BaseDynamoDBRepository(awsConfig), IPermissionRepository {
 
     private val tableClient = super.client().getTable(permissionTableName)
