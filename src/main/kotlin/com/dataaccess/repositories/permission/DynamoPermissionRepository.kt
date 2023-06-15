@@ -16,10 +16,10 @@ import com.permission.api.common.models.dataaccess.permission.dynamo.PermissionD
 class DynamoPermissionRepository (
     awsConfig: AWSConfiguration,
     @Value(value = "\${aws.dynamo.permissionTableName}")
-    private val permissionTableName: String
+    private val tableName: String
     ) : BaseDynamoDBRepository(awsConfig), IPermissionRepository {
 
-    private val tableClient = super.client().getTable(permissionTableName)
+    private val tableClient = super.client().getTable(tableName)
 
     override fun getEntityPermissions(actorType: ActorType, entityId: String): List<Scope> {
         val readRequest = PermissionDynamoReadRequest(actorType, entityId)
